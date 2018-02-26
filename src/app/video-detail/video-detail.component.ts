@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -13,10 +13,14 @@ import { BrowserModule } from '@angular/platform-browser';
   selector: 'video-detail',
   templateUrl: './video-detail.component.html',
   styleUrls: ['./video-detail.component.css'],
-  inputs:['video']
+  inputs: ['video'],
+  outputs: ['updateVideoEvent', 'deleteVideoEvent']
 })
 export class VideoDetailComponent implements OnInit {
-   private editTitle:boolean =false;
+   video: any;
+   private editTitle = false;
+   private updateVideoEvent = new EventEmitter();
+   private deleteVideoEvent = new EventEmitter();
   constructor() { }
 
 
@@ -24,13 +28,21 @@ export class VideoDetailComponent implements OnInit {
   ngOnInit() {
   }
 
-  ngOnChanges(){
-    this.editTitle=false;
+  ngOnChanges() {
+    this.editTitle = false;
   }
 
-  onTitleClick(){
-    this.editTitle=true;
+  onTitleClick() {
+    this.editTitle = true;
   }
 
+  updateVideo() {
+  this.updateVideoEvent.emit(this.video);
+  }
+  deleteVideo(){
+    this.deleteVideoEvent.emit(this.video);
+  }
 
 }
+
+

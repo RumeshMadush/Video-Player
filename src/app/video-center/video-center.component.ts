@@ -31,10 +31,33 @@ export class VideoCenterComponent implements OnInit {
     this._videoService.addVideo(video)
         .subscribe(resNewVideo => {
           this.Videos.push(resNewVideo);
+          this.hidenNewVideo = true;
           this.selectVideo = resNewVideo;
 
         });
   }
+
+  onupdateVideoEvent(video: any) {
+    this._videoService.updateVideo(video).subscribe(resUpdatedVideo => video = resUpdatedVideo);
+    this.selectVideo = null;
+  }
+
+  ondeleteVideoEvent(video: any) {
+    const videoArray = this.Videos;
+    this._videoService.deleteVideo(video).subscribe(resDeletedVideo => {
+
+      for (let i = 0; i < videoArray.length; i++) {
+        if (videoArray[i]._id === video._id) {
+          videoArray.splice(i, 1);
+        }
+      }
+    });
+    this.selectVideo = null;
+  }
+
+
+
+
   newVideo() {
     this.hidenNewVideo = false;
   }

@@ -20,7 +20,9 @@
     </div>
 
 
-    <video-detail *ngIf="selectVideo && hidenNewVideo" [video]="selectVideo"></video-detail>
+    <video-detail (updateVideoEvent)= "onupdateVideoEvent($event)"
+                  (deleteVideoEvent)="ondeleteVideoEvent($event)"
+                  *ngIf="selectVideo && hidenNewVideo" [video]="selectVideo"></video-detail>
   </div>
 
 <div class="col-sm-3">

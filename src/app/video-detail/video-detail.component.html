@@ -5,6 +5,14 @@
 <!--</p>-->
 
 <div>
+  <div>
+
+
+  <iframe width="560" height="315"  [src]="video.url | safe " frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+
+
+
   <form>
     <div *ngIf="editTitle" class="form-group">
       <input type="input" class="form-control" name="title" required placeholder="title"[(ngModel)]="video.title">
@@ -17,6 +25,8 @@
     <div class="form-group">
       <textarea type="input" class="form-control" name="discription" required placeholder="discription" [(ngModel)] ="video.discription"></textarea>
     </div>
+    <button type="button" (click)="updateVideo()" class="btn btn-primary">Update</button>
+    <button type="button" (click)="deleteVideo()" class="btn btn-danger">Delete</button>
   </form>
 
 </div>

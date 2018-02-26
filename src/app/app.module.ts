@@ -11,14 +11,24 @@ import { VideoDetailComponent } from './video-detail/video-detail.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer} from '@angular/platform-browser';
 
+@Pipe({ name: 'safe' })
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+}
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     VideoCenterComponent,
     VideoListComponent,
-    VideoDetailComponent
+    VideoDetailComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
